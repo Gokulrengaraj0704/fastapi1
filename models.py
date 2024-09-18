@@ -73,6 +73,6 @@ class ImageModel(Base):
     id = Column(Integer, primary_key=True)
     event_id = Column(Integer, ForeignKey("events.id"), unique=True, nullable=False)
     filename = Column(String, nullable=False)
-    data = Column(LargeBinary, nullable=False)
+    data = Column(BYTEA, nullable=False)
 
     event = relationship("Event", back_populates="image")

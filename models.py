@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey, LargeBinary, Enum as SQLAlchemyEnum
+from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey, LargeBinary, Enum 
 from sqlalchemy.orm import relationship
 from database import Base
+from sqlalchemy.dialects.postgresql import BYTEA
 from schemas import EventStatusEnum
 
 class User(Base):

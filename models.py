@@ -1,7 +1,6 @@
-from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey, LargeBinary, Enum 
+from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey, LargeBinary, Enum as SQLAlchemyEnum
 from sqlalchemy.orm import relationship
 from database import Base
-from sqlalchemy.dialects.postgresql import BYTEA
 from schemas import EventStatusEnum
 
 class User(Base):
@@ -73,6 +72,6 @@ class ImageModel(Base):
     id = Column(Integer, primary_key=True)
     event_id = Column(Integer, ForeignKey("events.id"), unique=True, nullable=False)
     filename = Column(String, nullable=False)
-    data = Column(BYTEA, nullable=False)
+    data = Column(LargeBinary, nullable=False)
 
     event = relationship("Event", back_populates="image")

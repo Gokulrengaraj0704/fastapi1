@@ -237,8 +237,8 @@ async def dashboard(request: Request, db: Session = Depends(get_db)):
     if user.is_restricted:
         return RedirectResponse(url="/users-template", status_code=303)
 
-    # Fetch all events for the dashboard
-    events = db.query(Event).options(joinedload(Event.image)).all()
+    # Fetch events only for current users
+    events = db.query(Event).filter(Event.user_id == user.id).all()
 
     response = templates.TemplateResponse("dashboard.html", {
         "request": request,
@@ -561,7 +561,8 @@ async def events(request: Request, db: Session = Depends(get_db)):
         if not user:
             raise HTTPException(status_code=403, detail="User not found")
 
-        events = db.query(Event).all()  # Fetch all events
+        events = db.query(Event).filter(Event.user_id == user.id).all()
+ # Fetch all events
 
         return templates.TemplateResponse("events.html", {
             "request": request,
